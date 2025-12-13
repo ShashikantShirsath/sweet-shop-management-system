@@ -1,18 +1,16 @@
-interface User {
-    id: string;
-    email: string;
-    password: string;
-}
+import { prisma } from "../../config/prisma";
 
 export class AuthRepository {
-    private users: User[] = [];
 
-    async findByEmail(email: string): Promise<User | null> {
-        return this.users.find(user => user.email === email) || null;
+    async findByEmail(email: string) {
+        return prisma.user.findUnique({
+            where: { email }
+        });
     }
 
-    async create(user: User): Promise<User> {
-        this.users.push(user);
-        return user;
+    async create(data: {id: string; email: string; password: string}) {
+        return prisma.user.create({
+            data
+        });
     }
 }
