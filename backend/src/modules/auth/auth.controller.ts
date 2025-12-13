@@ -1,11 +1,18 @@
 import { Request, Response } from "express";
+import { AuthService } from "./auth.service";
 
-export const register = (req: Request, res: Response) => {
-    const { email, password } = req.body;
+const authService = new AuthService();
 
-    if(!email || !password) {
-        return res.status(400).json({ message: "Email and password are required" });
+export const register = async (req: Request, res: Response) => {
+    try {
+        const { email, password } = req.body;
+        
+        if(!email || !password) {
+            return res.status(400).json({ message: "Email and password are required" });
+        }
+        const user = await authService.register(email, password);
+        return res.status(201).json(user);
+    } catch (error:any) {
+        return res.status(400).json({ message: error.message});
     }
-
-    return res.status(201).json({ id: "temp-id", email: email})
 }
