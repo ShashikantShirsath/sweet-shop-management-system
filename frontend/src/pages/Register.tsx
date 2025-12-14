@@ -1,26 +1,31 @@
 import { useState } from "react";
-import { useAuth } from "../auth/AuthContext";
+import api from "../api/axios";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-export default function Login() {
-    const { login } = useAuth();
+export default function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-
-        if(!email || !password) {
+        setError("");
+        if(!email || !password){
             toast.error("Email and Password are required");
             setLoading(false);
             return;
         }
 
         try {
-            await login(email, password);
+            await api.post("/auth/register", { email, password });
+            toast.success("Account created successfully");
+            navigate("/login");
+        } catch (err: any) {
+            toast.error(err.response?.data?.message || "Registration failed");
         } finally {
             setLoading(false);
         }
@@ -32,7 +37,15 @@ export default function Login() {
                 onSubmit={handleSubmit}
                 className="bg-white p-6 rounded shadow-md w-80"
             >
-                <h2 className="text-xl font-semibold mb-4 text-center">Login</h2>
+                <h2 className="text-xl font-semibold mb-4 text-center">
+                    Create Account
+                </h2>
+
+                {error && (
+                    <p className="text-red-500 text-sm mb-3 text-center">
+                        {error}
+                    </p>
+                )}
 
                 <input
                     className="w-full mb-3 p-2 border rounded"
@@ -51,21 +64,21 @@ export default function Login() {
                 />
 
                 <button
-                    type="submit"
                     disabled={loading}
-                    className={`w-full text-white py-2 rounded ${loading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
+                    className={`w-full text-white py-2 rounded ${loading
+                            ? "bg-blue-400 cursor-not-allowed"
+                            : "bg-blue-600 hover:bg-blue-700"
                         }`}
                 >
-                    {loading ? "Logging in..." : "Login"}
+                    {loading ? "Registering..." : "Register"}
                 </button>
 
-                <p className="text-sm mt-3">
-                    Don’t have an account?{" "}
-                    <Link to="/register" className="text-blue-600">
-                        Register
+                <p className="text-sm mt-3 text-center">
+                    Already have an account?{" "}
+                    <Link to="/login" className="text-blue-600">
+                        Login
                     </Link>
                 </p>
-
             </form>
         </div>
     );
