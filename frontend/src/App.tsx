@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 
 import ProtectedRoute from "./auth/ProtectedRoute";
 import PublicRoute from "./auth/PublicRoute";
+import AddDeleteSweet from "./pages/AddDeleteSweet";
 
 
 function AppContent() {
@@ -46,6 +47,15 @@ function App() {
             }
           />
 
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AddDeleteSweet />
+              </ProtectedRoute>
+            }
+          />
+          
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </AuthProvider>

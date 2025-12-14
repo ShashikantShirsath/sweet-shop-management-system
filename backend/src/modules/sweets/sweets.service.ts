@@ -25,4 +25,13 @@ export class SweetsService {
     async list(filters: SweetFilters) {
         return this.repository.findAll(filters);
     }
+
+    async update(id: string, data: Partial<CreateSweetInput>) {
+        return this.repository.update(id, data);
+    }
+
+    async delete(id: string) {
+        return this.repository.delete(id);
+    }
+
 }

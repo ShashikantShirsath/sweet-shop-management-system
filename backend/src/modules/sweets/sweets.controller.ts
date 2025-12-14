@@ -27,3 +27,13 @@ export const listSweets = async (req: Request, res: Response) => {
 
   return res.status(200).json(sweets);
 };
+
+export const updateSweet = async (req: Request, res: Response) => {
+  const updated = await sweetsService.update(req.params.id, req.body);
+  res.json(updated);
+};
+
+export const deleteSweet = async (req: Request, res: Response) => {
+  await sweetsService.delete(req.params.id);
+  res.status(204).send();
+};
