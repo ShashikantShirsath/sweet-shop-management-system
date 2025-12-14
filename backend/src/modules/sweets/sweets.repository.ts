@@ -48,4 +48,18 @@ export class SweetsRepository {
         return prisma.sweet.findMany({ where });
     }
 
+    async update(id: string, data: any) {
+        return prisma.sweet.update({
+            where: { id },
+            data,
+        });
+    }
+
+    async delete(id: string) {
+        return prisma.sweet.delete({
+            where: { id },
+        });
+    }
+
+
 }
