@@ -23,7 +23,29 @@ export class SweetsRepository {
         });
     }
 
-    async findAll() {
-        return prisma.sweet.findMany();
+    async findAll(filters?: {
+        search?: string;
+        category?: string;
+    }) {
+        const where: any = {};
+
+        if (filters?.search?.trim()) {
+            where.name = {
+                contains: filters.search.trim(),
+                mode: "insensitive"
+            };
+        }
+
+        if (filters?.category?.trim()) {
+            where.category = {
+                equals: filters.category.trim(),
+                mode: "insensitive"
+            };
+        }
+
+        console.log("PRISMA WHERE 👉", where);
+
+        return prisma.sweet.findMany({ where });
     }
+
 }

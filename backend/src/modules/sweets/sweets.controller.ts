@@ -16,7 +16,14 @@ export const purchaseSweet = async (req: Request, res: Response) => {
     return res.status(200).json(sweet);
 };
 
-export const listSweets = async (_req: Request, res: Response) => {
-    const sweets = await sweetsService.list();
-    return res.status(200).json(sweets);
+export const listSweets = async (req: Request, res: Response) => {
+  const search =
+    typeof req.query.search === "string" ? req.query.search : undefined;
+
+  const category =
+    typeof req.query.category === "string" ? req.query.category : undefined;
+
+  const sweets = await sweetsService.list({ search, category });
+
+  return res.status(200).json(sweets);
 };

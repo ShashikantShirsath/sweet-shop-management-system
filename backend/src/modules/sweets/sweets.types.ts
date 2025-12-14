@@ -12,3 +12,8 @@ export interface SweetResponse {
   price: number;
   quantity: number;
 }
+
+export interface SweetFilters {
+  search?: string;
+  category?: string;
+}

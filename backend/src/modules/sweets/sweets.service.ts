@@ -1,5 +1,5 @@
 import { SweetsRepository } from "./sweets.repository";
-import { CreateSweetInput } from "./sweets.types";
+import { CreateSweetInput, SweetFilters } from "./sweets.types";
 
 export class SweetsService {
     private repository = new SweetsRepository();
@@ -22,7 +22,7 @@ export class SweetsService {
         return this.repository.updateQuantity(sweetId, updatedQuantity);
     }
 
-    async list() {
-        return this.repository.findAll();
+    async list(filters: SweetFilters) {
+        return this.repository.findAll(filters);
     }
 }
