@@ -88,4 +88,8 @@ Architecture (MVC-based architecture) -
 - Service → Business logic
 - Repository → Database access (Prisma)
 - Middleware → Auth, role checks, error handling
- 
+
+ Screenshorts - 
+
+ Login page - ![image alt](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Screenshot%202025-12-15%20002754.png)
+
