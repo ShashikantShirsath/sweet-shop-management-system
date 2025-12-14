@@ -22,7 +22,7 @@ export class SweetsService {
         return this.repository.updateQuantity(sweetId, updatedQuantity);
     }
 
-    async list() {
+    async list(filters?: { search?: string; category?: string; }) {
         return this.repository.findAll();
     }
 }

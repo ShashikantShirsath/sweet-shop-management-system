@@ -22,8 +22,22 @@ export class SweetsRepository {
             data: { quantity: newQuantity }
         });
     }
-
-    async findAll() {
-        return prisma.sweet.findMany();
+    async findAll(filters?: {
+        search?: string;
+        category?: string;
+    }) {
+        return prisma.sweet.findMany({
+            where: {
+                AND: [
+                    filters?.search
+                        ? { name: { contains: filters.search, mode: "insensitive" } }
+                        : {},
+                    filters?.category
+                        ? { category: filters.category }
+                        : {}
+                ]
+            }
+        });
     }
+
 }
