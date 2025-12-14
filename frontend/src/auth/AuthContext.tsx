@@ -3,6 +3,7 @@ import api from "../api/axios";
 import type { AuthContextType } from "./auth.types";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -12,12 +13,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         localStorage.getItem("token")
     );
 
+    const [role, setRole] = useState<"ADMIN" | "USER" | null>(() => {
+        const stored = localStorage.getItem("token");
+        if (!stored) return null;
+        const decoded: any = jwtDecode(stored);
+        return decoded.role;
+    });
+
     const login = async (email: string, password: string) => {
         try {
             const res = await api.post("/auth/login", { email, password });
 
-            setToken(res.data.accessToken);
-            localStorage.setItem("token", res.data.accessToken);
+            const accessToken = res.data.accessToken;
+            const decoded: any = jwtDecode(accessToken);
+
+            setToken(accessToken);
+            setRole(decoded.role);
+
+            localStorage.setItem("token", accessToken);
+
             toast.success("Login successful");
             navigate("/");
         } catch (err: any) {
@@ -27,12 +41,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     const logout = () => {
-        localStorage.removeItem("token");
-        setToken(null);
-    };
+  localStorage.removeItem("token");
+  setToken(null);
+  setRole(null);
+  navigate("/login");
+};
 
     return (
-        <AuthContext.Provider value={{ token, login, logout }}>
+        <AuthContext.Provider value={{ token, role, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
