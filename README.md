@@ -1,6 +1,17 @@
 Sweet Shop Management System
 
-Description : A full-stack Sweet Shop Management System built with modern best practices, focusing on clean architecture, maintainable code, role-based access control, and a great user experience.
+Description : 
+-A full-stack Sweet Shop Management System built with modern best practices, focusing on clean architecture, maintainable code, role-based access control, and a great user experience
+- Followed Test Driven Development.
+- implemented test cases first, then, after successful test cases passed, refactored business logic for production readiness.
+- Written a reusable function and used descriptive naming conventions for functions, variables, etc.
+
+Git & GitHub Best Practices (flow of working) -
+i. Take a pull of the development branch & create a new branch from the development branch.
+ii. Then do functionality, test on the developer side with edge cases.
+iii. Then git add, commit.
+iv. Take pull of base branch (development).
+v. push code on the current branch and create a pull request to the base branch, i.e., development branch (review and merge to development).
 
 Local Setup & Installation Guide -
 (This project consists of two separate applications)
@@ -89,6 +100,30 @@ Architecture (MVC-based architecture) -
 - Repository → Database access (Prisma)
 - Middleware → Auth, role checks, error handling
 
+My AI Usage -
+1. Architecture & Planning
+- To validate backend architecture decisions such as MVC layering, service–repository separation, and role-based access control.
+- To reason the concurrency handling during the purchase flow.
+
+2. Backend Development
+- To clarify Prisma usage patterns (filters, schema design).
+- To improve error handling, validation, and maintainable service logic.
+- To implement Test Driven Development (TDD).
+
+3. Frontend Development
+- To refine React component structure for better readability and reuse.
+- To generate boilerplate code for components.
+- To implement features like role-based UI rendering and protected/public routes.
+- Occasionally, to improve UX decisions (disabled buttons, validation messages, loaders, and conditional rendering).
+
+4. Testing & Debugging
+- To understand failing test cases and improve test isolation.
+- To debug issues by reasoning through logs and execution flow rather than guessing.
+
+5. Code Quality & Maintainability
+- To refactor code into cleaner, more readable, and reusable patterns.
+- To ensure naming conventions, separation of concerns, and consistency across the project.
+
  Screenshorts - 
 
  Login page - 
@@ -121,6 +156,7 @@ Architecture (MVC-based architecture) -
  ![image alt](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Screenshot%202025-12-15%20014354.png)
 
  ![image alt](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Screenshot%202025-12-15%20014412.png)
+
 
 
 
