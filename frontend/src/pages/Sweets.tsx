@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 import SweetCard from "../components/SweetCard";
+import Navbar from "../components/Navbar";
 
 interface Sweet {
   id: string;
@@ -12,9 +13,16 @@ interface Sweet {
 
 export default function Sweets() {
   const [sweets, setSweets] = useState<Sweet[]>([]);
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("");
 
   const fetchSweets = async () => {
-    const response = await api.get("/sweets");
+    const response = await api.get("/sweets", {
+      params: {
+        search,
+        category
+      }
+    });
     setSweets(response.data);
   };
 
@@ -25,21 +33,52 @@ export default function Sweets() {
 
   useEffect(() => {
     fetchSweets();
-  }, []);
+  }, [search, category]);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-2xl font-bold mb-6 text-center">Sweet Shop</h1>
+    <>
+      <Navbar />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {sweets.map((sweet) => (
-          <SweetCard
-            key={sweet.id}
-            sweet={sweet}
-            onPurchase={purchaseSweet}
+      <div className="bg-gray-100 min-h-screen p-6">
+        {/* Search & Filter */}
+        <div className="flex flex-col sm:flex-row gap-4 mb-6">
+          <input
+            type="text"
+            placeholder="Search sweets..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="p-2 border rounded w-full sm:w-1/2"
           />
-        ))}
+
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="p-2 border rounded w-full sm:w-1/4"
+          >
+            <option value="">All Categories</option>
+            <option value="Indian">Indian</option>
+            <option value="Chocolate">Chocolate</option>
+            <option value="Bakery">Bakery</option>
+          </select>
+        </div>
+
+        {/* Sweet Grid */}
+        {sweets.length === 0 ? (
+          <p className="text-center text-gray-500">
+            No sweets found.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {sweets.map((sweet) => (
+              <SweetCard
+                key={sweet.id}
+                sweet={sweet}
+                onPurchase={purchaseSweet}
+              />
+            ))}
+          </div>
+        )}
       </div>
-    </div>
+    </>
   );
 }
