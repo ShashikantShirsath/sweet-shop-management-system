@@ -4,6 +4,7 @@ import SweetCard from "../components/SweetCard";
 import Navbar from "../components/Navbar";
 import SweetFormModal from "../components/SweetFormModal";
 import toast from "react-hot-toast";
+import { ClipLoader } from "react-spinners";
 
 interface Sweet {
     id: string;
@@ -17,22 +18,32 @@ export default function Sweets() {
     const [sweets, setSweets] = useState<Sweet[]>([]);
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedSweet, setSelectedSweet] = useState<any>(null);
 
     const fetchSweets = async () => {
-        const response = await api.get("/sweets", {
-            params: {
-                search,
-                category
-            }
-        });
-        setSweets(response.data);
+        try {
+            setLoading(true);
+            const response = await api.get("/sweets", {
+                params: { search, category },
+            });
+            setSweets(response.data);
+        } catch (err: any) {
+            toast.error("Failed to fetch sweets");
+        } finally {
+            setLoading(false);
+        }
     };
 
-    const purchaseSweet = async (id: string) => {
-        await api.post(`/sweets/${id}/purchase`, { quantity: 1 });
+    const purchaseSweet = async (id: string, quantity: number) => {
+        try {
+            await api.post(`/sweets/${id}/purchase`, { quantity });
+            toast.success("Sweet purchased");
+        } catch (err: any) {
+            toast.error(err.response?.data?.message || "Purchase failed");
+        }
         fetchSweets();
     };
 
@@ -45,8 +56,8 @@ export default function Sweets() {
             await api.delete(`/sweets/${id}`);
             toast.success("Sweet deleted");
             fetchSweets();
-        } catch {
-            toast.error("Delete failed");
+        } catch (err: any) {
+            toast.error(err.response?.data?.message || "Delete failed");
         }
     };
 
@@ -87,7 +98,11 @@ export default function Sweets() {
                     </select>
                 </div>
 
-                {sweets.length === 0 ? (
+                {loading ? (
+                    <div className="flex justify-center items-center h-64">
+                        <ClipLoader size={50} color="#7c3aed" />
+                    </div>
+                ) : sweets.length === 0 ? (
                     <p className="text-center text-gray-500">
                         No sweets found.
                     </p>
@@ -98,7 +113,7 @@ export default function Sweets() {
                                 key={sweet.id}
                                 sweet={sweet}
                                 onPurchase={purchaseSweet}
-                                onEdit={(s:any) => {
+                                onEdit={(s: any) => {
                                     setSelectedSweet(s);
                                     setIsModalOpen(true);
                                 }}

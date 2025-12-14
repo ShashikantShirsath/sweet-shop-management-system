@@ -41,9 +41,9 @@ function App() {
           <Route
             path="/"
             element={
-              <ProtectedRoute>
+              
                 <Sweets />
-              </ProtectedRoute>
+              
             }
           />
 
