@@ -22,22 +22,30 @@ export class SweetsRepository {
             data: { quantity: newQuantity }
         });
     }
+
     async findAll(filters?: {
         search?: string;
         category?: string;
     }) {
-        return prisma.sweet.findMany({
-            where: {
-                AND: [
-                    filters?.search
-                        ? { name: { contains: filters.search, mode: "insensitive" } }
-                        : {},
-                    filters?.category
-                        ? { category: filters.category }
-                        : {}
-                ]
-            }
-        });
+        const where: any = {};
+
+        if (filters?.search?.trim()) {
+            where.name = {
+                contains: filters.search.trim(),
+                mode: "insensitive"
+            };
+        }
+
+        if (filters?.category?.trim()) {
+            where.category = {
+                equals: filters.category.trim(),
+                mode: "insensitive"
+            };
+        }
+
+        console.log("PRISMA WHERE 👉", where);
+
+        return prisma.sweet.findMany({ where });
     }
 
 }
