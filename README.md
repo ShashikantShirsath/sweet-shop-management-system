@@ -91,5 +91,36 @@ Architecture (MVC-based architecture) -
 
  Screenshorts - 
 
- Login page - ![image alt](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Screenshot%202025-12-15%20002754.png)
+ Login page - 
+ ![image alt](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Screenshot%202025-12-15%20002754.png)
+
+ Signup page - 
+ ![image alt](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Screenshot%202025-12-15%20002810.png)
+
+ User page - 
+ ![image alt](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Screenshot%202025-12-15%20014131.png)
+
+ Admin page - 
+ ![image alt](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Screenshot%202025-12-15%20014212.png)
+
+ Sweet add page - 
+ ![image alt](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Screenshot%202025-12-15%20014232.png)
+
+ Sweet add page - 
+ ![image alt](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Screenshot%202025-12-15%20014247.png)
+ 
+ Admin page with disabled purchase button - 
+ ![image alt](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Screenshot%202025-12-15%20014327.png)
+
+ Mobile View of pages - 
+
+ ![image alt](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Screenshot%202025-12-15%20014431.png)
+
+ ![image alt](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Screenshot%202025-12-15%20014441.png)
+
+ ![image alt](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Screenshot%202025-12-15%20014354.png)
+
+ ![image alt](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Screenshot%202025-12-15%20014412.png)
+
+
 
