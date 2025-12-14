@@ -19,3 +19,12 @@ enum Role {
   USER
   ADMIN
 }
+
+model Sweet {
+  id        String   @id @default(uuid())
+  name      String  
+  category  String 
+  price     Float
+  quantity  Int
+  createdAt DateTime @default(now())
+}
