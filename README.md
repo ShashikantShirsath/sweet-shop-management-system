@@ -158,5 +158,5 @@ My AI Usage -
  ![image alt](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Screenshot%202025-12-15%20014412.png)
 
 
-
+[![View Demo](https://github.com/ShashikantShirsath/sweet-shop-management-system/blob/main/Sweet%20Shop%20Management%20Video%20-%20Made%20with%20Clipchamp.mp4)](
 
